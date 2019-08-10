@@ -13,19 +13,13 @@ import pe.eyenoon.ourlunch.entity.Board;
 import pe.eyenoon.ourlunch.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping({"", "/"})
 public class BoardController {
 
     @Autowired
     BoardService boardService;
 
-    @GetMapping({"", "/"})
-    public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
-        model.addAttribute("board", boardService.findBoardByIdx(idx));
-        return "/board/form";
-    }
-
-    @GetMapping("/list")
+    @GetMapping({""})
     public String list(@PageableDefault Pageable pageable, Model model) {
         Page<Board> boardList = boardService.findBoardList(pageable);
         boardList.stream().forEach(e -> e.getContent());
@@ -33,4 +27,18 @@ public class BoardController {
 
         return "/board/list";
     }
+
+    @GetMapping("/board")
+    public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
+        model.addAttribute("board", boardService.findBoardByIdx(idx));
+
+        return "/board/board";
+    }
+
+    @GetMapping("/write")
+    public String write() {
+
+        return "/board/write";
+    }
+
 }
