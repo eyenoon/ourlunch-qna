@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Board Form</title>
+    <title>우리의 점심 Q&A</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <style>
-        /*html{position:relative;min-height:100%;}*/
         body{
             margin-bottom:60px;
         }
@@ -23,8 +22,10 @@
     <div class="page-header">
         <h1>우리의점심 Q&A</h1>
     </div>
-    <div class="pull-right" style="width:100px;margin:10px 0;">
-        <a href="/write" class="btn btn-primary btn-block">질문 등록</a>
+    <div class="pull-right"
+         style="width:100px;margin:10px 0;">
+        <a href="/form"
+           class="btn btn-primary btn-block">질문 등록</a>
     </div>
     <br/><br/><br/>
 
@@ -55,12 +56,16 @@
 </div>
 <br/>
 
-<nav aria-label="Page navigation" style="text-align:center;">
+<nav aria-label="Page navigation"
+     style="text-align:center;">
     <ul class="pagination"
         th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1,
-                 endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
+                 endNumber=(${boardList.totalPages} > ${startNumber}+9)
+                            ? ${startNumber}+9
+                            : ${boardList.totalPages}">
         <li>
-            <a aria-label="Previous" href="?page=1">&laquo;</a>
+            <a aria-label="Previous"
+               href="?page=1">&laquo;</a>
         </li>
 
         <li th:style="${boardList.first} ? 'display:none'">
@@ -70,7 +75,9 @@
         <li th:each="page :${#numbers.sequence(startNumber, endNumber)}"
             th:class="(${page} == ${boardList.number}+1) ? 'active'"
             th:style="(${page} == ${boardList.totalPages}) ? 'display:none'">
-            <a th:href="@{/(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+            <a th:href="@{/(page=${page})}" th:text="${page}">
+                <span class="sr-only"/>
+            </a>
         </li>
 
         <li th:style="${boardList.last} ? 'display:none'">
@@ -78,7 +85,8 @@
         </li>
 
         <li>
-            <a aria-label="Next" th:href="@{/(page=${totalPage})}">&raquo;</a>
+            <a aria-label="Next"
+               th:href="@{/(page=${boardList.totalPages})}">&raquo;</a>
         </li>
     </ul>
 </nav>

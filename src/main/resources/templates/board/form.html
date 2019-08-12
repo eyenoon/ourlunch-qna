@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>질문 등록</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body{
+            margin-bottom:60px;
+        }
+
+        body > .container{
+            padding:60px 15px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>질문 금지쓰</h1>
+    </div>
+    <br/>
+    <input id="board-idx"
+           type="hidden"
+           th:value="${board?.idx}"/>
+    <table class="table">
+        <tr>
+            <th style="padding:13px 0 0 15px;">제목</th>
+            <td>
+                <input id="board_title"
+                       type="text"
+                       class="col-md-1 form-control input-sm"
+                       th:value="${board?.title}"/>
+            </td>
+        </tr>
+        <tr>
+            <th style="padding:13px 0 0 15px;">내용</th>
+            <td>
+                <textarea id="board_content"
+                          class="col-md-1 form-control input-sm"
+                          maxlength="140"
+                          rows="7"
+                          style="height: 200px;"
+                          th:text="${board?.content}"/>
+                <span class="help-block"/>
+            </td>
+        </tr>
+    </table>
+
+    <div class="pull-left">
+        <a href="/"
+           class="btn btn-default">목록으로</a>
+    </div>
+    <div class="pull-right">
+        <button th:if="!${board?.idx}"
+                type="button"
+                class="btn btn-primary"
+                id="insert">등록</button>
+        <button th:if="!${board?.idx}"
+                type="button"
+                class="btn btn-info"
+                id="update">수정</button>
+        <button th:if="!${board?.idx}"
+                type="button"
+                class="btn btn-danger"
+                id="delete">삭제</button>
+    </div>
+</div>
+
+</body>
+</html>
