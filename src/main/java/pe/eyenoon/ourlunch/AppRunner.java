@@ -6,7 +6,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import pe.eyenoon.ourlunch.entity.Board;
 import pe.eyenoon.ourlunch.entity.User;
-import pe.eyenoon.ourlunch.entity.enums.BoardType;
 import pe.eyenoon.ourlunch.repository.BoardRepository;
 import pe.eyenoon.ourlunch.repository.UserRepository;
 
@@ -25,19 +24,20 @@ public class AppRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         User user = userRepository.save(User.builder()
-                        .name("bsc")
-                        .password("1234")
-                        .email("bsc@naver.com")
-                        .createdDate(LocalDateTime.now())
-                        .build());
+                                            .name("bsc")
+                                            .password("1234")
+                                            .email("bsc@naver.com")
+                                            .createdDate(LocalDateTime.now())
+                                            .build());
 
-        IntStream.rangeClosed(1, 200).forEach(index ->
+        IntStream.rangeClosed(1, 21).forEach(index ->
                 boardRepository.save(Board.builder()
-                        .title("Content " + index)
-                        .content("Content Example " + index)
-                        .boardType(BoardType.question)
-                        .createdDate(LocalDateTime.now())
-                        .updatedDate(LocalDateTime.now())
-                        .user(user).build()));
+                                          .title("담백이의 깊은 주름 " + index)
+                                          .writer("피스")
+                                          .content("This 주름의 깊이는 " + index + "CM이다.")
+                                          .createdDate(LocalDateTime.now())
+                                          .updatedDate(LocalDateTime.now())
+                                          .user(user)
+                                          .build()));
     }
 }

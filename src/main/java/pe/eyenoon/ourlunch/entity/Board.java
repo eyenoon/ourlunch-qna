@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pe.eyenoon.ourlunch.entity.enums.BoardType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,14 +25,10 @@ public class Board {
     private String title;
 
     @Column
-    private String subTitle;
+    private String writer;
 
     @Column
     private String content;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private BoardType boardType;
 
     @Column
     private LocalDateTime createdDate;
@@ -43,4 +38,13 @@ public class Board {
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
+
+    public Board(Long idx, String title, String writer, String content, LocalDateTime createdDate, LocalDateTime updatedDate) {
+        this.idx = idx;
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+    }
 }

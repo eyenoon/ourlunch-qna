@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>우리의 점심 Q&A</title>
+    <title>담백이</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -20,12 +20,14 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>우리의점심 Q&A</h1>
+        <a href="/">
+            <h1>담백이</h1>
+        </a>
     </div>
     <div class="pull-right"
          style="width:100px;margin:10px 0;">
-        <a href="/form"
-           class="btn btn-primary btn-block">질문 등록</a>
+        <a href="/write"
+           class="btn btn-primary btn-block">주름 추가</a>
     </div>
     <br/><br/><br/>
 
@@ -33,22 +35,23 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="col-md-1">#</th>
-                <th class="col-md-2">분류</th>
-                <th class="col-md-5">제목</th>
-                <th class="col-md-2">작성날짜</th>
-                <th class="col-md-2">수정날짜</th>
+                <th class="col-xs-1 col-sm-1 col-md-1">번호</th>
+                <th class="col-xs-5 col-sm-5 col-md-5">주름명</th>
+                <th class="col-xs-2 col-sm-2 col-md-3">원인 제공자</th>
+                <th class="col-xs-2 col-sm-2 col-md-3">업데이트</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.idx}"></td>
-                <td th:text="${board.boardType.value}"></td>
-                <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                <td th:text="${board.createdDate} ?
-                    ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></td>
-                <td th:text="${board.updatedDate} ?
-                    ${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')} : ${board.updatedDate}"></td>
+                <td>
+                    <a th:href="'/detail?idx='+${board.idx}"
+                       th:text="${board.title}"/>
+                </td>
+                <td th:text="${board.writer}"></td>
+                <td th:text="${board.updatedDate}
+                             ? ${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}
+                             : ${board.updatedDate}"></td>
             </tr>
             </tbody>
         </table>
@@ -74,7 +77,7 @@
 
         <li th:each="page :${#numbers.sequence(startNumber, endNumber)}"
             th:class="(${page} == ${boardList.number}+1) ? 'active'"
-            th:style="(${page} == ${boardList.totalPages}) ? 'display:none'">
+            th:style="(${page} > ${boardList.totalPages}) ? 'display:none'">
             <a th:href="@{/(page=${page})}" th:text="${page}">
                 <span class="sr-only"/>
             </a>

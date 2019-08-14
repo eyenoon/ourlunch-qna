@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8" />
+    <title>담백이 주름 성형</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        body{
+            margin-bottom:60px;
+        }
+
+        body > .container{
+            padding:60px 15px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h1>담백이 주름 추가</h1>
+    </div>
+    <br/>
+
+    <form th:action="@{/modify}"
+          th:object="${board}"
+          method="post">
+        <input type="hidden"
+               th:field="*{idx}"/>
+        <input type="hidden"
+               th:field="*{createdDate}"/>
+        <input type="hidden"
+               th:field="*{updatedDate}"/>
+
+        <table class="table">
+            <tr>
+                <th style="padding:13px 0 0 15px;">주름명</th>
+                <td>
+                    <input type="text"
+                           class="col-md-1 form-control input-sm"
+                           th:field="*{title}"/>
+                </td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">원인 제공자</th>
+                <td>
+                    <input type="text"
+                           class="col-md-1 form-control input-sm"
+                           th:field="*{writer}"/>
+                </td>
+            </tr>
+            <tr>
+                <th style="padding:13px 0 0 15px;">원인</th>
+                <td>
+                <textarea class="col-md-1 form-control input-sm"
+                          maxlength="140"
+                          rows="7"
+                          style="height: 200px;"
+                          th:field="*{content}"/>
+                    <span class="help-block"/>
+                </td>
+            </tr>
+        </table>
+
+        <div class="pull-left">
+            <a href="/"
+               class="btn btn-default">주름 목록</a>
+        </div>
+        <div class="pull-right">
+            <input type="submit"
+                   class="btn btn-primary"
+                   value="완료"/>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
